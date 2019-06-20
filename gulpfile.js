@@ -5,11 +5,15 @@ var sass = require("gulp-sass");
 var browserSync = require("browser-sync").create();
 var nunjucksRender = require("gulp-nunjucks-render");
 var babel = require("gulp-babel");
+var data = require('gulp-data');
 
 // building the html task
 gulp.task("nunjucks", function() {
   return gulp
     .src(['src/html/pages/*.+(html|nunjucks)'])
+      .pipe(data(function() {
+          return require('./src/data/data.json')
+      }))
     .pipe(
       nunjucksRender({
         path: ["src/html/templates"]
