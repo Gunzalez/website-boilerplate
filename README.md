@@ -12,7 +12,7 @@ Simply clone the repo, change git address, edit as you please then export static
 * Remove `.git` file
 * Provide new git address
 * Run `npm install` for dependencies
-* Run `gulp` tostart project
+* Run `gulp` to start project
 * Make changes as needed
 
 
