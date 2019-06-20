@@ -65,10 +65,10 @@ gulp.task(
   gulp.parallel("browserSync", function() {
     gulp.watch("src/scss/**/*.scss", gulp.series("sass"));
     gulp.watch("src/js/*.js", gulp.series("jshint"));
-    gulp.watch(['src/html/pages/*.+(html|nunjucks)',], gulp.series("nunjucks"));
+    gulp.watch(['src/html/**/*.+(html|nunjucks)'], gulp.series("nunjucks"));
     gulp.watch("website/*.html", browserSync.reload);
   })
 );
 
 // define the default task and add the watch task to it
-gulp.task("default", gulp.parallel("watch"));
+gulp.task("default", gulp.parallel('watch','nunjucks','sass','jshint'));
