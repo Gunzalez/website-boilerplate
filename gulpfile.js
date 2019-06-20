@@ -3,32 +3,24 @@ var gulp = require("gulp");
 var jshint = require("gulp-jshint");
 var sass = require("gulp-sass");
 var browserSync = require("browser-sync").create();
-var nunjucksRender = require('gulp-nunjucks-render');
-var babel = require('gulp-babel');
-
-// var defaults = {
-//     // path: '.',
-//     path: 'src/html/page/templates',
-//     ext: '.html',
-//     data: {},
-//     inheritExtension: false,
-//     envOptions: {
-//         watch: false
-//     },
-//     manageEnv: null,
-//     loaders: null
-// };
+var nunjucksRender = require("gulp-nunjucks-render");
+var babel = require("gulp-babel");
 
 // building the html task
-gulp.task('nunjucks', function() {
-    // Gets .html and .nunjucks files in pages
-    return gulp.src('src/html/pages/**/*.+(html|nunjucks)')
-    // Renders template with nunjucks
-        .pipe(nunjucksRender({
-            path: ['src/html/page/templates']
-        }))
-        // output files in app folder
-        .pipe(gulp.dest('website'))
+gulp.task("nunjucks", function() {
+  return gulp
+    .src(['src/html/pages/*.+(html|nunjucks)'])
+    .pipe(
+      nunjucksRender({
+        path: ["src/html/templates"]
+      })
+    )
+    .pipe(gulp.dest("website/"))
+    .pipe(
+      browserSync.reload({
+        stream: true
+      })
+    );
 });
 
 // configure the jshint task
@@ -37,7 +29,7 @@ gulp.task("jshint", function() {
     .src(["src/js/*.js"])
     .pipe(jshint())
     .pipe(jshint.reporter("jshint-stylish"))
-      .pipe(gulp.dest("website/js"))
+    .pipe(gulp.dest("website/js"))
     .pipe(
       browserSync.reload({
         stream: true
@@ -73,7 +65,7 @@ gulp.task(
   gulp.parallel("browserSync", function() {
     gulp.watch("src/scss/**/*.scss", gulp.series("sass"));
     gulp.watch("src/js/*.js", gulp.series("jshint"));
-
+    gulp.watch(['src/html/pages/*.+(html|nunjucks)',], gulp.series("nunjucks"));
     gulp.watch("website/*.html", browserSync.reload);
   })
 );
