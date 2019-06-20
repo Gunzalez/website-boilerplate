@@ -4,6 +4,7 @@ var jshint = require("gulp-jshint");
 var sass = require("gulp-sass");
 var browserSync = require("browser-sync").create();
 var nunjucksRender = require('gulp-nunjucks-render');
+var babel = require('gulp-babel');
 
 // var defaults = {
 //     // path: '.',
@@ -33,9 +34,10 @@ gulp.task('nunjucks', function() {
 // configure the jshint task
 gulp.task("jshint", function() {
   return gulp
-    .src(["website/js/*.js", "website/js/*.min.js"])
+    .src(["src/js/*.js"])
     .pipe(jshint())
     .pipe(jshint.reporter("jshint-stylish"))
+      .pipe(gulp.dest("website/js"))
     .pipe(
       browserSync.reload({
         stream: true
@@ -70,7 +72,7 @@ gulp.task(
   "watch",
   gulp.parallel("browserSync", function() {
     gulp.watch("src/scss/**/*.scss", gulp.series("sass"));
-    gulp.watch("website/js/*.js", gulp.series("jshint"));
+    gulp.watch("src/js/*.js", gulp.series("jshint"));
 
     gulp.watch("website/*.html", browserSync.reload);
   })
