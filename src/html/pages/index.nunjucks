@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>Home</h1>
+<h1>Home time</h1>
 
 <div class="gallery">
     <!-- Loops through "images" array -->
