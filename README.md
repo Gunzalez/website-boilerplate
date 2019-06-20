@@ -9,8 +9,8 @@ Simply clone the repo, change git address, edit as you please then export static
 ### Instructions
 
 * Clone repo
-* Remove `.git` file
-* Provide new git address
+* Remove the hidden `.git` folder
+* Assign new git remotes to repo
 * Run `npm install` for dependencies
 * Run `gulp` to start project
 * Make changes as needed
